@@ -1,0 +1,28 @@
+Revision history for Perl extension Scalar::Properties.
+
+0.10  Wed Jun 27 20:31:45 2001
+	- added code execution methods, abs(), zero()
+	- added is_false() method
+	- added 'has_' prefix for property querying
+	- added property propagation (pass_on(), passed_on(), get_pass_on())
+	- added property introspection (get_props(), del_props(),
+	  del_all_props())
+	- added tests and documentation for all of the above
+
+0.03  Wed Jun 27 16:08:46 2001
+	- added many string methods, plus tests and documentation
+	- changed boolean methods to return an overloaded boolean value
+	  so it can take properties as well
+
+0.02  Tue Jun 27 00:08:24 2001
+	- value() stringifies if argument not of this package
+	- added options to import() to be able to selectively specify
+	  constant overloading from different packages, e.g. overloading
+	  'qr' from a Regex package
+	- added methods length, size, reverse and tests for those
+	- added TODO document
+
+0.01  Tue Jun 26 19:35:58 2001
+	- original version; created by h2xs 1.20 with options
+		-XAn Scalar::Properties
+

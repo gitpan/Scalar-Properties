@@ -1,0 +1,80 @@
+* Test constant 'qr'
+
+* 'true' and 'false' properties are opposites that still only affect
+  one hash key; define other opposites as well?
+
+* test what happens to propagated properties when you delete them
+  on the original object
+
+* overload '0+' and the other missing ones
+
+* in value(), also check for other escaped chars like '\t'
+
+* use it for versioning so you can undo changes? or as in debugging,
+  see the whole history of commands that affected a variable.
+  Cross-references to other variables that were also affected in
+  those statements. A graph...?
+
+* in a similar vein, methods like C<length> could add a property
+  to the resulting value that notes where the value comes from:
+
+	my $l = 'hello world'->length;
+	print $l->origin;     # prints "length 'hello world'" (or so)
+
+* group methods and make each group a mixin class in a separate
+  module, loaded on import. ':all' loads all; 'split' loads only the
+  split method; ':num' loads all numeric methods etc.
+  The versioning idea above would certainly be a mixin.
+  The propagation methods that are automatically exported so far also
+  should go into an import tag (':pass'?)
+
+* methods that generate an array can be lazy; in this case they
+  return an iterator instead of the list. Cf. mjd's talk.
+
+* take ideas from Ruby's Numeric and String classes, and from Java's
+  classes. New methods:
+  
+  chr   # string containing the ASCII character represented by the value
+  ceil  # Returns the smallest integer value greater than or equal to the value
+  floor # Returns the largest integer value less than or equal to the value
+  round # Returns the value rounded to the nearest integer
+
+  utf8 upgrade, downgrade
+  crlf conversion
+  printf
+  sprintf
+  substr
+  sub
+  	$a = "hello there";
+  	$a->sub(1)  === 'e'
+  	$a->sub(1..3) === 'ell'
+  	$a->sub('lo') === 'lo'
+  	$a->sub('bye') === undef
+  	$a->sub(/th[aeiou]/) === 'the'
+  	this returns a (builtin) substr, which is lvaluable, so you can do
+  	$a->sub(/[el]+/) = 'xyz'   # 'hxyzlo there'
+  match
+  subst (regex subst)
+  tr (y)
+  charlist # split //
+  chomp
+  chop
+  crypt($salt)
+  center($len)
+  ljust($len)
+  rjust($len)
+  trim, ltrim, rtrim
+  dump # replace all nonprinting chars by \nnn, escape special chars
+  each_byte # list of all ords
+  empty # true if length is 0
+  index
+  rindex
+  succ (next, incr) # overloads ++
+  pred (prev, decr) # overloads --
+  replace # straightforward replace, no regex chars
+  squeeze # 'hello world' === 'helowrd'
+  md5 # require Digest::MD5
+  sum($n) # sum of binary value of each char modulo 2**$n - 1, a weak checksum
+  unpack
+  upto  # 'a'->upto('e') = qw/a b c d e/;
+  clone (deep copy, needs Clone module, so definitely as a mixin class)
