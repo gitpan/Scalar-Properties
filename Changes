@@ -1,5 +1,9 @@
 Revision history for Perl extension Scalar::Properties.
 
+0.11  Tue Nov  4 18:54:00 2003 by DCANTRELL
+        - fixed operand ordering bug in generated functions for binary ops
+        - fixed bug in test suite which only showed up after fixing above ;-)
+
 0.10  Wed Jun 27 20:31:45 2001
 	- added code execution methods, abs(), zero()
 	- added is_false() method
@@ -14,7 +18,7 @@ Revision history for Perl extension Scalar::Properties.
 	- changed boolean methods to return an overloaded boolean value
 	  so it can take properties as well
 
-0.02  Tue Jun 27 00:08:24 2001
+0.02  Tue Jun 26 00:08:24 2001
 	- value() stringifies if argument not of this package
 	- added options to import() to be able to selectively specify
 	  constant overloading from different packages, e.g. overloading

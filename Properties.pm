@@ -3,7 +3,7 @@ package Scalar::Properties;
 use warnings;
 use strict;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 
 use overload
 	q{""}  => \&value,
@@ -143,7 +143,12 @@ sub gen_meth {
 	}
 }
 
-my $binop = 'sub NAME { create(value($_[0]) OP value($_[1]), @_[0,1]) }';
+my $binop = 'sub NAME {
+    my($n, $m) = @_[0,1];
+    ($m, $n) = ($n, $m) if($_[2]);
+    create(value($n) OP value($m), $n, $m)
+}';
+
 gen_meth $binop, qw!
     plus     +
     minus    -
@@ -164,8 +169,10 @@ gen_meth $binop, qw!
 !;
 
 # needs 'CORE::lc', otherwise 'Ambiguous call resolved as CORE::lc()'
-my $bool_i =
-    'sub NAME { create( CORE::lc(value($_[0])) OP CORE::lc(value($_[1])), @_[0,1] ) }';
+my $bool_i = 'sub NAME {
+    create( CORE::lc(value($_[0])) OP CORE::lc(value($_[1])), @_[0,1] )
+}';
+
 gen_meth $bool_i, qw!
     eqi      eq
     nei      ne
@@ -175,7 +182,10 @@ gen_meth $bool_i, qw!
     gei      ge
 !;
 
-my $func = 'sub NAME { create(OP(value($_[0])), $_[0]) }';
+my $func = 'sub NAME {
+    create(OP(value($_[0])), $_[0])
+}';
+
 gen_meth $func, qw!
     abs      abs
     length   CORE::length
@@ -319,7 +329,7 @@ taking an idea from Ruby: Everything you manipulate is an object,
 and the results of those manipulations are objects themselves.
 
   'hello world'->length
-  -1234->abs
+  (-1234)->abs
   "oh my god, it's full of properties"->index('g')
 
 The first example asks a string to calculate its length. The second
@@ -562,9 +572,12 @@ James A. Duncan <jduncan@fotango.com>
 
 Marcel Grunauer, <marcel@codewerk.com>
 
+Some contributions from David Cantrell, <david@cantrell.org.uk>
+
 =head1 COPYRIGHT
 
-Copyright 2001 Marcel Grunauer, James A. Duncan. All rights reserved.
+Copyright 2001 Marcel Grunauer, James A. Duncan.
+Portions copyright 2003 David Cantrell. All rights reserved.
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

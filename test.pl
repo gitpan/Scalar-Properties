@@ -6,7 +6,7 @@
 # Change 1..1 below to 1..last_test_to_print .
 # (It may become useful if the test is moved to ./t subdirectory.)
 
-BEGIN { $| = 1; print "1..149\n"; }
+BEGIN { $| = 1; print "1..150\n"; }
 END {print "not ok 1\n" unless $loaded;}
 use Scalar::Properties;
 $loaded = 1;
@@ -31,6 +31,10 @@ sub true {
 sub false { true(!$_[0]) }
 
 my $pkg = 'Scalar::Properties';
+
+{  # test added by DCANTRELL to tickle the binary-op operand re-ordering bug
+        true(time - 300 > 0);
+}
 
 false(0);
 true(1);
@@ -290,7 +294,7 @@ true (1->is_true );
 }
 
 {
-	true(-1942->abs == 1942);
+	true((-1942)->abs() == 1942);
 	true(    0->abs ==    0);
 	true(  773->abs ==  773);
 
