@@ -6,7 +6,7 @@
 # Change 1..1 below to 1..last_test_to_print .
 # (It may become useful if the test is moved to ./t subdirectory.)
 
-BEGIN { $| = 1; print "1..150\n"; }
+BEGIN { $| = 1; print "1..151\n"; }
 END {print "not ok 1\n" unless $loaded;}
 use Scalar::Properties;
 $loaded = 1;
@@ -25,7 +25,7 @@ sub true {
 	our $testcount;
 	$testcount++;
 	print 'not ' unless $ok;
-	print "ok $testcount\n";
+	print "ok $testcount ".($_[0]?$_[0]:'')."\n";
 }
 
 sub false { true(!$_[0]) }
@@ -33,8 +33,16 @@ sub false { true(!$_[0]) }
 my $pkg = 'Scalar::Properties';
 
 {  # test added by DCANTRELL to tickle the binary-op operand re-ordering bug
-        true(time - 300 > 0);
+        true(time - 300 > 0, "binary-op operand re-ordering bug");
 }
+
+{  # test added by DCANTRELL to test for rt.cpan.org bug 4312
+    my $test = 0;
+    true($test."\$test"."\\$test"."\\\$test"."\\\\$test" eq
+        '0$test\0\$test\\\\0', "variable interpolation bug");
+}
+
+# die;
 
 false(0);
 true(1);

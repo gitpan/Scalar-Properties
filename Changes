@@ -1,5 +1,12 @@
 Revision history for Perl extension Scalar::Properties.
 
+0.12  Sun Nov  9 11:31:00 2003 by DCANTRELL
+        - applied patch to fix interpolation bug, reported and patch
+          supplied by makamaka@users.sourceforge.jp
+        - added test for this bug
+        - changed true() function in test.pl to show a useful comment
+          for each test if supplied
+
 0.11  Tue Nov  4 18:54:00 2003 by DCANTRELL
         - fixed operand ordering bug in generated functions for binary ops
         - fixed bug in test suite which only showed up after fixing above ;-)

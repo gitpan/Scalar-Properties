@@ -3,7 +3,7 @@ package Scalar::Properties;
 use warnings;
 use strict;
 
-our $VERSION = '0.11';
+our $VERSION = '0.12';
 
 use overload
 	q{""}  => \&value,
@@ -125,8 +125,9 @@ sub create {
 # anything not of this package is stringified to give any potential
 # other overloading a chance to get at it's actual value
 sub value {
-	my $v = ref $_[0] eq __PACKAGE__ ? $_[0]->{_value} : "$_[0]";
-	$v =~ s/\\n/\n/gs;  # no idea why newlines become literal '\n'
+	# my $v = ref $_[0] eq __PACKAGE__ ? $_[0]->{_value} : "$_[0]";
+	# $v =~ s/\\n/\n/gs;  # no idea why newlines become literal '\n'
+	my $v = ref $_[0] eq __PACKAGE__ ? $_[0]->{_interp} : "$_[0]";
 	return $v;
 }
 
