@@ -3,7 +3,7 @@ package Scalar::Properties;
 use warnings;
 use strict;
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 
 use overload
 	q{""}  => \&value,
@@ -91,12 +91,12 @@ sub del_all_props {
 sub handle {
 	# create a new overloaded object
 	my ($orig, $interp, $context, $sub, @prop) = @_;
-	my $self = bless({
+	my $self = bless {
 	    _value   => $orig,
 	    _interp  => $interp,
 	    _context => $context,
 	    true    => ($orig) ? 1 : 0,
-	}, __PACKAGE__);
+	}, __PACKAGE__;
 
 	# propagate properties marked as such via pass_on from 
 	# participating overloaded values passed in @prop
@@ -562,29 +562,43 @@ Returns a list of names of properties that are passed on.
 
 =back
 
-=head1 BUGS
+=head1 TAGS
 
-None known so far. If you find any bugs or oddities, please do inform the
-authors.
+If you talk about this module in blogs, on del.icio.us or anywhere else,
+please use the C<scalarproperties> tag.
+
+=head1 BUGS AND LIMITATIONS
+
+No bugs have been reported.
+
+Please report any bugs or feature requests to
+C<bug-scalar-properties@rt.cpan.org>, or through the web interface at
+L<http://rt.cpan.org>.
+
+=head1 INSTALLATION
+
+See perlmodinstall for information and options on installing Perl modules.
+
+=head1 AVAILABILITY
+
+The latest version of this module is available from the Comprehensive Perl
+Archive Network (CPAN). Visit <http://www.perl.com/CPAN/> to find a CPAN
+site near you. Or see <http://www.perl.com/CPAN/authors/id/M/MA/MARCEL/>.
 
 =head1 AUTHORS
 
-James A. Duncan <jduncan@fotango.com>
+Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
 
-Marcel Grunauer, <marcel@codewerk.com>
+James A. Duncan C<< <jduncan@fotango.com> >>
 
-Some contributions from David Cantrell, <david@cantrell.org.uk>
+Some contributions from David Cantrell, C<< <david@cantrell.org.uk> >>
 
-=head1 COPYRIGHT
+=head1 COPYRIGHT AND LICENSE
 
-Copyright 2001 Marcel Grunauer, James A. Duncan.
-Portions copyright 2003 David Cantrell. All rights reserved.
+Copyright 2001-2007 by Marcel GrE<uuml>nauer
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
 
-=head1 SEE ALSO
-
-perl(1), overload(3pm), Perl 6's properties.
-
 =cut
+

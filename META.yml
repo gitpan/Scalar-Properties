@@ -1,0 +1,21 @@
+--- 
+abstract: run-time properties on scalar variables
+author: Marcel GrE<uuml>nauer, C<< <marcel@cpan.org> >>
+build_requires: 
+  Test::Compile: 0
+  Test::More: 0
+  UNIVERSAL::require: 0
+distribution_type: module
+generated_by: Module::Install version 0.67
+license: perl
+meta-spec: 
+  url: http://module-build.sourceforge.net/META-spec-v1.3.html
+  version: 1.3
+name: Scalar-Properties
+no_index: 
+  directory: 
+    - inc
+    - t
+requires: 
+  perl: 5.6.0
+version: 0.13
